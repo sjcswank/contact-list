@@ -35,7 +35,8 @@
         <td>{{ contact.email }}</td>
         <td>{{ contact.phone }}</td>
         <td>{{ contact.address }}</td>
-        <td><button type="button" class="close" onClick="deleteContact({{ contact.id }})">&times;</button>
+        <td><a href="/edit-contact?contact_id={{ contact.id }}"><span class="fa-solid fa-edit text-secondary"></span></button>
+        <td><button type="button" class="close text-secondary" onClick="deleteContact({{ contact.id }})">&times;</button>
     </tr>
     {% endfor %}
   </tbody>
