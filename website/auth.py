@@ -2,8 +2,7 @@ from flask import Blueprint, request, flash, render_template, redirect, url_for
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
-from flask_login import login_user, logout_user, login_required
-
+from flask_login import login_user, logout_user, login_required, current_user
 
 auth = Blueprint('auth', __name__)
 
@@ -19,12 +18,13 @@ def login():
             if check_password_hash(user.password, password):
                 login_user(user, remember=True)
                 flash('Logged in successfully!', category='success')
+                return redirect(url_for('views.home'))
             else:
                 flash('Incorrect Password.', category='error')
         else:
             flash('Incorrect email', category='error')
 
-    return render_template('login.html')
+    return render_template('login.html', user=current_user)
 
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
@@ -53,4 +53,4 @@ def sign_up():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('auth.login', user=current_user))

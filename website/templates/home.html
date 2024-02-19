@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Contacts{% endblock %}
+{% block content %}
+<h1 align="center">Contacts</h1>
+<form method="POST">
+    <label for="name">Contact Name</label>
+    <input name="name" id="name" class="form-control" />
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" class="form-control" />
+    <label for="phone">Phone Number</label>
+    <input type="tel" name="phone" id="phone" class="form-control" />
+    <label for="address">Address</label>
+    <input name="address" id="address" class="form-control" />
+    <br>
+    <div align="center">
+        <button type="submit" class="btn btn-primary">Add Contact</button>
+    </div>
+    <br>
+</form>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Address</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for contact in user.contacts %}
+    <tr>
+        <th scope="row">{{ contact.name }}</th>
+        <td>{{ contact.email }}</td>
+        <td>{{ contact.phone }}</td>
+        <td>{{ contact.address }}</td>
+        <td><button type="button" class="close" onClick="deleteContact({{ contact.id }})">&times;</button>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
