@@ -46,7 +46,7 @@ def sign_up():
             db.session.commit()
             login_user(new_user, remember=True)
             flash('User Created!', category='success')
-    return render_template('sign-up.html')
+    return render_template('sign-up.html', user=current_user)
 
 
 @auth.route('/logout')
