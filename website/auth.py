@@ -36,6 +36,8 @@ def sign_up():
 
         if len(email) < 4:
             flash('Email must be more than 3 characters.', category='error')
+        elif User.query.filter_by(email=email).first():
+            flash('Email already in use.', category='error')
         elif len(password) < 7:
             flash('Password must at least 7 characters long.', category='error')
         elif password != confirm_password:
@@ -46,6 +48,7 @@ def sign_up():
             db.session.commit()
             login_user(new_user, remember=True)
             flash('User Created!', category='success')
+            return redirect(url_for('views.home'))
     return render_template('sign-up.html', user=current_user)
 
 
