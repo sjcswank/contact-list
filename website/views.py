@@ -1,8 +1,8 @@
 import json
 
 from flask import Blueprint, render_template, request, jsonify, redirect, url_for
-from flask_login import login_required, current_user
-from .models import Contact
+from flask_login import login_required, current_user, logout_user
+from .models import Contact, User
 from . import db
 
 views = Blueprint('views', __name__)
@@ -27,6 +27,7 @@ def home():
 @views.route('/delete-contact', methods=['POST'])
 def delete_contact():
     data = json.loads(request.data)
+    print(data)
     contact_id = data['contactId']
     contact = Contact.query.get(contact_id)
 
@@ -53,3 +54,16 @@ def edit_contact():
         return redirect(url_for('views.home'))
 
     return render_template('edit.html', contact=contact, user=current_user)
+
+
+@views.route('/delete-user', methods=['POST'])
+def delete_user():
+    data = json.loads(request.data)
+    print(data)
+    user_id = data['userId']
+    user = User.query.get(user_id)
+
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+    return jsonify({})
