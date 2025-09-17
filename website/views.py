@@ -66,4 +66,6 @@ def delete_user():
     if user:
         db.session.delete(user)
         db.session.commit()
-    return jsonify({})
+    else:
+        return jsonify({ "Status": 204 })
+    return jsonify({ "Status": 200 })
