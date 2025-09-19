@@ -1,2 +1,6 @@
 instance/
 website/__pycache__
+.idea/
+.venv/
+.vscode/
+scripts.txt
