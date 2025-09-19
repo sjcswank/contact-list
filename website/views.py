@@ -59,15 +59,14 @@ def edit_contact():
 @views.route('/delete-user', methods=['POST'])
 def delete_user():
     data = json.loads(request.data)
-    print(data)
-    user_id = data['userId']
-    user = User.query.get(user_id)
+    email = data['email']
+    user = User.query.filter_by(email=email).first()
 
     if user:
         db.session.delete(user)
         db.session.commit()
     else:
         return jsonify({ "Status": 204,
-                        "userId": None })
+                        "email": None })
     return jsonify({ "Status": 200,
-                     "userId": user_id})
+                     "email": user.email })
