@@ -17,12 +17,12 @@ def login():
         if user:
             if check_password_hash(user.password, password):
                 login_user(user, remember=True)
-                flash('Welcome, ' + user.email + '!', category='success')
+                flash('Welcome back, ' + user.email + '!', category='success')
                 return redirect(url_for('views.home'))
             else:
-                flash('Incorrect Password.', category='error')
+                flash('Incorrect password.', category='error')
         else:
-            flash('Incorrect email', category='error')
+            flash('Email does not exist.', category='error')
 
     return render_template('login.html', user=current_user)
 
