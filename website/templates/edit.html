@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Edit{% endblock %}
 {% block content %}
+<h1 class="h3"  align="center">Contacts</h1>
 <form method="POST">
     <label for="name">Contact Name</label>
     <input name="name" id="name" class="form-control" value="{{ contact.name }}"/>
